@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var notification = [
+        {
+            app: 'telegram',
+            message: 'Some text message',
+            sender: 'Ivan Petrov',
+            date: '31/07/2019',
+        },
+        {
+            app: 'telegram',
+            message: 'Some text message',
+            sender: 'Ivan Petrov',
+            date: '31/07/2019',
+        },
+        {
+            app: 'instagram',
+            message: 'Some text message',
+            sender: 'Vlad Petrov',
+            date: '31/07/2019',
+        },
+        {
+            app: 'instagram',
+            message: 'Some text message',
+            sender: 'Vlad Petrov',
+            date: '31/07/2019',
+        },
+        {
+            app: 'Facebook',
+            message: 'Some text message',
+            sender: 'Ira Petrova',
+            date: '31/07/2019',
+        },
+
+];
+        function groupBy(array, prop){
+            return array.reduce(function(result, notification){
+                if(!result[notification[prop]]){
+                    result[notification[prop]] = [];
+                 }
+                     
+                     result[notification[prop]].push(notification);
+                     return result;
+                 
+            })
+        }
+        console.log(groupBy(notification, 'app'));
+    </script>
+</body>
+</html>
