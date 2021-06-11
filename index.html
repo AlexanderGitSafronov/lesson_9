@@ -22,6 +22,12 @@
             date: '31/07/2019',
         },
         {
+            app: 'telegram',
+            message: 'Some text message',
+            sender: 'Ivan Petrov',
+            date: '31/07/2019',
+        },
+        {
             app: 'instagram',
             message: 'Some text message',
             sender: 'Vlad Petrov',
@@ -41,18 +47,42 @@
         },
 
 ];
+
         function groupBy(array, prop){
-            return array.reduce(function(result, notification){
-                if(!result[notification[prop]]){
-                    result[notification[prop]] = [];
-                 }
-                     
-                     result[notification[prop]].push(notification);
-                     return result;
-                 
-            })
+            return array.reduce(function(result, element){
+                 result[element[prop]] = result[element[prop]] || [];
+                 result[element[prop]].push(element);
+                 return result;
+            }, [])
         }
-        console.log(groupBy(notification, 'app'));
+
+        function toMatrix(array, prop) {
+            return array.reduce(function(result, element, index, arr){
+                 if(index && arr[index - 1][prop] === element[prop]){
+                    result
+                    .find(function(group){
+                        return group[0][prop] === element[prop]
+                    })
+                    .push(element); 
+                 }else {
+                    result.push([element])
+                 }
+
+                 return result;
+            }, [])
+            
+        }
+
+
+        function propPedd(array, firstProp, secondProp) {
+            var propped = groupBy(array, firstProp);
+            for (var key in propped) {
+                propped[key] = toMatrix(propped[key], secondProp)
+            }
+            return propped;
+        }
+
+        console.log(propPedd(notification, 'app', 'sender'));
     </script>
 </body>
 </html>
